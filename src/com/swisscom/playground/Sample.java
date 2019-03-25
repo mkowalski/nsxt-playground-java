@@ -7,6 +7,9 @@ import com.vmware.nsx.TransportZones;
 import com.vmware.nsx.model.TransportZone;
 import com.vmware.nsx.model.TransportZoneListResult;
 
+import org.apache.http.HttpHost;
+import org.apache.http.impl.client.HttpClientBuilder;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -17,8 +20,11 @@ public class Sample {
         System.setProperty("https.proxyHost","localhost");
         System.setProperty("https.proxyPort","5001");
 
+        HttpHost myProxy = new HttpHost("localhost", 5001, "http");
+        HttpClientBuilder.create().useSystemProperties().setProxy(myProxy).build();
+
         ApiClient apiClient = ApiClientUtils.createApiClient(
-                "https://psrvwl02nsx0701.sccloudinfra.net:443",
+                "https://100.107.89.169:443",
                 "admin",
                 get_password("gopass PKS/NSX-T/admin").toCharArray()
         );
